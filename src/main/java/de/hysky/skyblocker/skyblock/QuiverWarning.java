@@ -7,6 +7,7 @@ import de.hysky.skyblocker.utils.scheduler.Scheduler;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
@@ -22,14 +23,14 @@ public class QuiverWarning {
     }
 
     public static boolean onChatMessage(Text text, boolean overlay) {
-        String message = text.getString();
-        if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.endsWith("left in your Quiver!")) {
-            MinecraftClient.getInstance().inGameHud.setDefaultTitleFade();
-            if (message.startsWith("You only have 50")) {
+        String message = Formatting.strip(text.getString());
+        if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.startsWith("QUIVER! You")) {
+            MinecraftClient.getInstance().inGameHud.setTitleTicks(5, 20, 5);
+            if (message.startsWith("QUIVER! You only have 50")) {
                 onChatMessage(Type.FIFTY_LEFT);
-            } else if (message.startsWith("You only have 10")) {
+            } else if (message.startsWith("QUIVER! You only have 10")) {
                 onChatMessage(Type.TEN_LEFT);
-            } else if (message.startsWith("You don't have any more")) {
+            } else if (message.startsWith("QUIVER! You have run out of")) {
                 onChatMessage(Type.EMPTY);
             }
         }
@@ -43,16 +44,28 @@ public class QuiverWarning {
             MinecraftClient.getInstance().inGameHud.setTitle(Text.translatable(warning.key).formatted(Formatting.RED));
             QuiverWarning.warning = warning;
         }
+		playQuiverSounds(warning);
     }
 
     public static void update() {
         if (warning != null && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningAfterDungeon && !Utils.isInDungeons()) {
             InGameHud inGameHud = MinecraftClient.getInstance().inGameHud;
-            inGameHud.setDefaultTitleFade();
+			MinecraftClient.getInstance().inGameHud.setTitleTicks(5, 20, 5);
             inGameHud.setTitle(Text.translatable(warning.key).formatted(Formatting.RED));
+			playQuiverSounds(warning);
             warning = null;
         }
     }
+
+	private static void playQuiverSounds(Type warning) {
+		if (MinecraftClient.getInstance().player != null) {
+			switch (warning) {
+				case Type.FIFTY_LEFT: MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(), 100f, 1f); break;
+				case Type.TEN_LEFT: MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value(), 100f, 1.5f); break;
+				case Type.EMPTY: MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_ARROW_HIT, 100f, 0.1f); break;
+			}
+		}
+	}
 
     private enum Type {
         NONE(""),

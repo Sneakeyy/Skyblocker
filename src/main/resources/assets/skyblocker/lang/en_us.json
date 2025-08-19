@@ -429,6 +429,9 @@
   "skyblocker.config.general.quiverWarning.enableQuiverWarningAfterDungeon": "Enable Quiver Warning After a Dungeon",
   "skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons": "Enable Quiver Warning In Dungeons",
 
+  "skyblocker.config.general.rngMeterNotifier": "RNG Meter notifier",
+  "skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier": "Notify on RNG Meter drop",
+
   "skyblocker.config.general.searchOverlay.historyLabel": "History:",
   "skyblocker.config.general.searchOverlay.starsTooltip": "Star count for dungeon items",
   "skyblocker.config.general.searchOverlay.maxPet": "Max Pet Level",
@@ -1539,9 +1542,11 @@
   "skyblocker.customAnimatedDyes.noItemUuid": "§cYou must be holding an item that has a uuid to set a custom animated dye.",
   "skyblocker.customAnimatedDyes.unableToSetDye": "§cUnable to set a custom animated dye. Please check if you are in Skyblock and holding an item.",
 
-  "skyblocker.quiverWarning.50Left": "You only have 50 Arrows left in your Quiver!",
-  "skyblocker.quiverWarning.10Left": "You only have 10 Arrows left in your Quiver!",
-  "skyblocker.quiverWarning.empty": "You don't have any more Arrows left in your Quiver!",
+  "skyblocker.quiverWarning.50Left": "50 Arrows left!",
+  "skyblocker.quiverWarning.10Left": "10 Arrows left!",
+  "skyblocker.quiverWarning.empty": "Quiver depleted!",
+
+  "skyblocker.rngMeterNotifier.rngProcced": "RNG METER!",
 
   "skyblocker.itemProtection.added": "§fYour %s will now be protected! §o*your item now feels a little safer :')*",
   "skyblocker.itemProtection.removed": "§fYour %s will §nno longer be protected§f :( - §lBeware of the dangers in doing this!",
