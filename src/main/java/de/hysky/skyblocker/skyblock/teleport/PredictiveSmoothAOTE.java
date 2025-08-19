@@ -198,7 +198,7 @@ public class PredictiveSmoothAOTE {
 		Matcher manaNeeded = ItemUtils.getLoreLineIfMatch(heldItem, MANA_LORE);
 		if (manaNeeded != null && manaNeeded.matches()) {
 			int manaCost = Integer.parseInt(manaNeeded.group(1));
-			int predictedMana = StatusBarTracker.getMana().value();
+			int predictedMana = StatusBarTracker.getMana().value() + StatusBarTracker.getMana().overflow();
 			if (predictedMana < manaCost) {
 				return;
 			}

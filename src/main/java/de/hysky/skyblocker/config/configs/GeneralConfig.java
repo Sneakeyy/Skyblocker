@@ -23,6 +23,8 @@ public class GeneralConfig {
 
     public QuiverWarning quiverWarning = new QuiverWarning();
 
+	public RngMeterNotifier rngMeterNotifier = new RngMeterNotifier();
+
     public ItemList itemList = new ItemList();
 
     public ItemTooltip itemTooltip = new ItemTooltip();
@@ -74,7 +76,6 @@ public class GeneralConfig {
 		public boolean enableKeyBindingShortcuts = true;
     }
 
-
     public static class QuiverWarning {
         public boolean enableQuiverWarning = true;
 
@@ -82,6 +83,10 @@ public class GeneralConfig {
 
         public boolean enableQuiverWarningAfterDungeon = true;
     }
+
+	public static class RngMeterNotifier {
+		public boolean enableRngMeterNotifier = true;
+	}
 
     public static class ItemList {
         public boolean enableItemList = true;
