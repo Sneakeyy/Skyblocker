@@ -209,7 +209,7 @@ public class PredictiveSmoothAOTE {
 		List<ItemAbility> abilities = heldItem.skyblocker$getAbilities();
 		if (!abilities.isEmpty() && abilities.getFirst().manaCost().isPresent()) {
 			int manaCost = abilities.getFirst().manaCost().getAsInt();
-			int predictedMana = StatusBarTracker.getMana().value();
+			int predictedMana = StatusBarTracker.getMana().value() + StatusBarTracker.getMana().overflow();
 			if (predictedMana < manaCost) {
 				return;
 			}

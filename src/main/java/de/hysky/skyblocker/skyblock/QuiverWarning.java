@@ -5,8 +5,8 @@ import org.jspecify.annotations.Nullable;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Hud;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 
 import de.hysky.skyblocker.annotations.Init;
 import de.hysky.skyblocker.config.SkyblockerConfigManager;
@@ -22,45 +22,57 @@ public class QuiverWarning {
 		Scheduler.INSTANCE.scheduleCyclic(QuiverWarning::update, 10);
 	}
 
-	public static boolean onChatMessage(Component text, boolean overlay) {
-		String message = text.getString();
-		if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.endsWith("left in your Quiver!")) {
-			Minecraft.getInstance().gui.hud.resetTitleTimes();
-			if (message.startsWith("You only have 50")) {
-				onChatMessage(Type.FIFTY_LEFT);
-			} else if (message.startsWith("You only have 10")) {
-				onChatMessage(Type.TEN_LEFT);
-			} else if (message.startsWith("You don't have any more")) {
-				onChatMessage(Type.EMPTY);
-			}
-		}
-		return true;
-	}
+    public static boolean onChatMessage(Component text, boolean overlay) {
+        String message = ChatFormatting.stripFormatting(text.getString());
+        if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.startsWith("QUIVER! You")) {
+            Minecraft.getInstance().gui.setTimes(5, 20, 5);
+            if (message.startsWith("QUIVER! You only have 50")) {
+                onChatMessage(Type.FIFTY_LEFT);
+            } else if (message.startsWith("QUIVER! You only have 10")) {
+                onChatMessage(Type.TEN_LEFT);
+            } else if (message.startsWith("QUIVER! You have run out of")) {
+                onChatMessage(Type.EMPTY);
+            }
+        }
+        return true;
+    }
 
-	private static void onChatMessage(Type warning) {
-		if (!Utils.isInDungeons()) {
-			Minecraft.getInstance().gui.hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
-		} else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {
-			Minecraft.getInstance().gui.hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
-			QuiverWarning.warning = warning;
-		}
-	}
+    private static void onChatMessage(Type warning) {
+        if (!Utils.isInDungeons()) {
+            Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+        } else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {
+			Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+            QuiverWarning.warning = warning;
+        }
+		playQuiverSounds(warning);
+    }
 
 	public static void update() {
 		if (warning != null && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningAfterDungeon && !Utils.isInDungeons()) {
-			Hud hud = Minecraft.getInstance().gui.hud;
-			hud.resetTitleTimes();
-			hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			Gui inGameHud = Minecraft.getInstance().gui;
+			inGameHud.resetTitleTimes();
+			inGameHud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			playQuiverSounds(warning);
 			warning = null;
 		}
 	}
 
-	private enum Type {
-		NONE(""),
-		FIFTY_LEFT("50Left"),
-		TEN_LEFT("10Left"),
-		EMPTY("empty");
-		private final String key;
+	private static void playQuiverSounds(Type warning) {
+		if (Minecraft.getInstance().player != null) {
+			switch (warning) {
+				case Type.FIFTY_LEFT: Minecraft.getInstance().player.playSound(SoundEvents.NOTE_BLOCK_PLING.value(), 100f, 1f); break;
+				case Type.TEN_LEFT: Minecraft.getInstance().player.playSound(SoundEvents.NOTE_BLOCK_PLING.value(), 100f, 1.5f); break;
+				case Type.EMPTY: Minecraft.getInstance().player.playSound(SoundEvents.ARROW_HIT, 100f, 0.1f); break;
+			}
+		}
+	}
+
+    private enum Type {
+        NONE(""),
+        FIFTY_LEFT("50Left"),
+        TEN_LEFT("10Left"),
+        EMPTY("empty");
+        private final String key;
 
 		Type(String key) {
 			this.key = "skyblocker.quiverWarning." + key;

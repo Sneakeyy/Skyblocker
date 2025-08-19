@@ -9,19 +9,27 @@ import de.hysky.skyblocker.skyblock.slayers.SlayerType;
 import de.hysky.skyblocker.utils.render.title.Title;
 import de.hysky.skyblocker.utils.render.title.TitleContainer;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.sounds.SoundEvents;
+
+
 public class StakeIndicator {
-	private static final Title title = new Title("skyblocker.rift.stakeNow", ChatFormatting.RED);
+    private static final Title title = new Title("skyblocker.rift.stakeNow", ChatFormatting.RED);
+	private static final Minecraft CLIENT = Minecraft.getInstance();
 
 	public static void updateStake() {
 		if (!SkyblockerConfigManager.get().slayers.vampireSlayer.enableSteakStakeIndicator || !SlayerManager.isFightingSlayerType(SlayerType.VAMPIRE)) {
-			TitleContainer.removeTitle(title);
-			return;
-		}
+            TitleContainer.removeTitle(title);
+            return;
+        }
 		Entity slayerEntity = SlayerManager.getSlayerArmorStand();
-		if (slayerEntity != null && slayerEntity.getName().toString().contains("҉")) {
-			TitleContainer.addTitleAndPlaySound(title);
-		} else {
-			TitleContainer.removeTitle(title);
-		}
-	}
+        if (slayerEntity != null && slayerEntity.getDisplayName().toString().contains("҉")) {
+            TitleContainer.addTitle(title);
+			if (CLIENT.player != null) {
+				CLIENT.player.playSound(SoundEvents.TOTEM_USE, 100f, 1f);
+			}
+        } else {
+            TitleContainer.removeTitle(title);
+        }
+    }
 }
