@@ -168,6 +168,7 @@ public class GeneralCategory {
 						.collapsed(true)
 						.option(Option.<Boolean>createBuilder()
 								.name(Text.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier"))
+								.description(Text.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip"))
 								.binding(defaults.general.rngMeterNotifier.enableRngMeterNotifier,
 										() -> config.general.rngMeterNotifier.enableRngMeterNotifier,
 										newValue -> config.general.rngMeterNotifier.enableRngMeterNotifier = newValue)

@@ -431,6 +431,7 @@
 
   "skyblocker.config.general.rngMeterNotifier": "RNG Meter notifier",
   "skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier": "Notify on RNG Meter drop",
+  "skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip": "Show a title and play a sound when an item selected on your RNG Meter drops.",
 
   "skyblocker.config.general.searchOverlay.historyLabel": "History:",
   "skyblocker.config.general.searchOverlay.starsTooltip": "Star count for dungeon items",
