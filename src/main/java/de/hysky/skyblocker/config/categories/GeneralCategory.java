@@ -162,7 +162,7 @@ public class GeneralCategory {
                                 .controller(ConfigUtils.createBooleanController())
                                 .build())
                         .option(Option.<Boolean>createBuilder()
-                                .name(TexComponentt.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons"))
+                                .name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons"))
                                 .binding(defaults.general.quiverWarning.enableQuiverWarningInDungeons,
                                         () -> config.general.quiverWarning.enableQuiverWarningInDungeons,
                                         newValue -> config.general.quiverWarning.enableQuiverWarningInDungeons = newValue)
@@ -182,6 +182,7 @@ public class GeneralCategory {
 						.collapsed(true)
 						.option(Option.<Boolean>createBuilder()
 								.name(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier"))
+								.description(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip"))
 								.binding(defaults.general.rngMeterNotifier.enableRngMeterNotifier,
 										() -> config.general.rngMeterNotifier.enableRngMeterNotifier,
 										newValue -> config.general.rngMeterNotifier.enableRngMeterNotifier = newValue)

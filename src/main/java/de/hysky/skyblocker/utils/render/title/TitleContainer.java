@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Mth;
@@ -21,6 +22,7 @@ import de.hysky.skyblocker.annotations.Init;
 import de.hysky.skyblocker.config.SkyblockerConfigManager;
 import de.hysky.skyblocker.config.configs.UIAndVisualsConfig;
 import de.hysky.skyblocker.utils.scheduler.Scheduler;
+
 
 public class TitleContainer {
 	private static final Identifier TITLE_CONTAINER = SkyblockerMod.id("title_container");
@@ -115,6 +117,28 @@ public class TitleContainer {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Adds the title to {@link TitleContainer} and plays a custom sound if the title is not in the {@link TitleContainer} already.
+	 * No checking needs to be done on whether the title is in the {@link TitleContainer} already by the caller.
+	 *
+	 * @param title the title
+	 * @param soundEvent the sound to play
+	 * @return whether the title is currently shown already
+	 */
+	public static boolean addTitleAndPlayCustomSound(Title title, SoundEvent soundEvent, float volume, float pitch) {
+		if (addTitle(title)) {
+			playCustomSound(soundEvent, volume, pitch);
+			return true;
+		}
+		return false;
+	}
+
+	public static void playCustomSound(SoundEvent soundEvent, float volume, float pitch) {
+		if (CLIENT.player != null) {
+			CLIENT.player.playSound(soundEvent, volume, pitch);
+		}
 	}
 
 	public static void playNotificationSound() {
