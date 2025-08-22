@@ -41,6 +41,7 @@ import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
@@ -115,6 +116,10 @@ public abstract class HandledScreenMixin<T extends ScreenHandler> extends Screen
 	protected int y;
 	@Shadow
 	protected int backgroundWidth;
+
+	@Shadow
+	public abstract T getScreenHandler();
+
 	@Unique
 	private List<QuickNavButton> quickNavButtons;
 
@@ -165,7 +170,7 @@ public abstract class HandledScreenMixin<T extends ScreenHandler> extends Screen
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "keyPressed")
+	@Inject(at = @At("HEAD"), method = "keyPressed", cancellable = true)
 	public void skyblocker$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
 		if (this.client != null && this.client.player != null && this.focusedSlot != null && keyCode != 256 && !this.client.options.inventoryKey.matchesKey(keyCode, scanCode) && Utils.isOnSkyblock()) {
 			SkyblockerConfig config = SkyblockerConfigManager.get();
@@ -182,6 +187,16 @@ public abstract class HandledScreenMixin<T extends ScreenHandler> extends Screen
 				ItemPrice.itemPriceLookup(client.player, this.focusedSlot);
 			}
 		}
+		// movement keys escape out of dungeon chests
+		try {
+			if (Utils.isInDungeons() && getScreenHandler().getType() == ScreenHandlerType.GENERIC_9X3 && (keyCode == GLFW.GLFW_KEY_W || keyCode == GLFW.GLFW_KEY_A || keyCode == GLFW.GLFW_KEY_S || keyCode == GLFW.GLFW_KEY_D)) {
+				this.close();
+				cir.setReturnValue(true);
+			}
+		} catch (UnsupportedOperationException e) {
+			// ignore
+		}
+
 	}
 
 	@ModifyExpressionValue(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;mouseClicked(DDI)Z"))
