@@ -549,6 +549,13 @@ public class UIAndVisualsCategory {
 										() -> config.uiAndVisuals.bars.intelligenceDisplay,
 										newValue -> config.uiAndVisuals.bars.intelligenceDisplay = newValue)
 								.controller(ConfigUtils.createEnumController(intelligenceDisplay -> Component.translatable("skyblocker.config.uiAndVisuals.bars.intelligenceDisplay." + intelligenceDisplay.name())))
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.uiAndVisuals.bars.mergeHealthTypes"))
+								.binding(defaults.uiAndVisuals.bars.mergeHealthTypes,
+										() -> config.uiAndVisuals.bars.mergeHealthTypes,
+										newValue -> config.uiAndVisuals.bars.mergeHealthTypes = newValue)
+								.controller(ConfigUtils.createBooleanController())
 								.build()
 						).option(Option.<Boolean>createBuilder()
 								.name(Component.translatable("skyblocker.config.uiAndVisuals.bars.showEstimatedTilde"))

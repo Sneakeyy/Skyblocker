@@ -187,16 +187,21 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
 		int barWidth = iconPosition.equals(IconPosition.OFF) ? renderWidth : renderWidth - ICON_SIZE - 1;
 		int barX = iconPosition.equals(IconPosition.LEFT) ? renderX + ICON_SIZE + 2 : renderX;
 		String stringValue = value == null ? "???" : toDisplay.apply(overflow == null || showOverflow ? value : value + overflow);
-		//Color displayColor = overflow != null && !showOverflow ? colors[1] : textColor == null ? colors[0] : textColor;
 		Color displayColor = textColor == null ? colors[0] : textColor;
 		MutableComponent text = Component.literal(stringValue).withStyle(style -> style.withColor(displayColor.getRGB()));
-
-		if (hasMax() && showMax && max != null) {
-			text.append("/").append(max.toString());
-		}
 		if (hasOverflow() && showOverflow && overflow != null) {
-			MutableComponent literal = Component.literal(" + ").withStyle(style -> style.withColor(colors[1].getRGB()));
-			literal.append(toDisplay.apply(overflow));
+			if (this.type.getSerializedName().equals("health") && SkyblockerConfigManager.get().uiAndVisuals.bars.mergeHealthTypes) {
+				text = Component.literal(String.valueOf(Integer.parseInt(this.value.toString()) + Integer.parseInt(this.overflow.toString()))).withStyle(style -> style.withColor((colors[1]).getRGB()));
+			}
+			else {
+				MutableComponent literal = Component.literal(" + ").withStyle((style -> style.withColor((colors[1].getRGB()))));
+				literal.append(overflow.toString());
+				text.append(literal);
+			}
+		}
+		if (hasMax() && showMax && max != null) {
+			MutableComponent literal = Component.literal("/").withStyle((style -> style.withColor((colors[0].getRGB()))));
+			literal.append(max.toString());
 			text.append(literal);
 		}
 

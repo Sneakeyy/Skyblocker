@@ -325,6 +325,8 @@ public class UIAndVisualsConfig {
 
 		public boolean hasSeenVitalityAtLeastOnce = false;
 
+		public boolean mergeHealthTypes = false;
+
 		// Kept in for backwards compatibility, remove if needed
 		@SuppressWarnings("DeprecatedIsStillUsed")
 		@Deprecated
