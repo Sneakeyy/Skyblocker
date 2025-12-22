@@ -1011,6 +1011,7 @@
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.ORIGINAL": "Original",
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.ACCURATE": "Accurate",
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.IN_FRONT": "Smallest In Front",
+  "skyblocker.config.uiAndVisuals.bars.mergeHealthTypes": "Merge health with absorption health",
 
   "skyblocker.config.uiAndVisuals.cancelComponentUpdateAnimation": "Cancel Component Update Animation",
   "skyblocker.config.uiAndVisuals.cancelComponentUpdateAnimation.@Tooltip": "Cancels the down-and-up animation in your hand that plays when an item's components are updated.",
