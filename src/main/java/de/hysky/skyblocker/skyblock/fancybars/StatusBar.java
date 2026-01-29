@@ -157,20 +157,26 @@ public class StatusBar implements Widget, Drawable, Element, Selectable {
 		int barX = iconPosition.equals(IconPosition.LEFT) ? renderX + ICON_SIZE + 2 : renderX;
 		String stringValue = this.value.toString();
 		MutableText text = Text.literal(stringValue).styled(style -> style.withColor((textColor == null ? colors[0] : textColor).getRGB()));
-		if (hasOverflow() && showOverflow && overflow != null) {
+		if (hasMax() && showMax && max != null) {
+			MutableText literal = Text.literal("/").styled(style -> style.withColor(colors[0].getRGB()));
+			literal.append(max.toString());
+			text.append(literal);
+		}
+		if (hasOverflow() && showOverflow && overflow != null && this.overflow.toString().matches("^\\d+$")) {
 			if (this.type.asString().equals("health") && SkyblockerConfigManager.get().uiAndVisuals.bars.mergeHealthTypes) {
+				// Construct new Text for this case
 				text = Text.literal(String.valueOf(Integer.parseInt(this.value.toString()) + Integer.parseInt(this.overflow.toString()))).styled(style -> style.withColor((colors[1]).getRGB()));
+				if (hasMax() && showMax && max != null) {
+					MutableText literal = Text.literal("/").styled(style -> style.withColor(colors[0].getRGB()));
+					literal.append(max.toString());
+					text.append(literal);
+				}
 			}
 			else {
 				MutableText literal = Text.literal(" + ").styled(style -> style.withColor(colors[1].getRGB()));
 				literal.append(overflow.toString());
 				text.append(literal);
 			}
-		}
-		if (hasMax() && showMax && max != null) {
-			MutableText literal = Text.literal("/").styled(style -> style.withColor(colors[0].getRGB()));
-			literal.append(max.toString());
-			text.append(literal);
 		}
 
 		int textWidth = textRenderer.getWidth(text);
