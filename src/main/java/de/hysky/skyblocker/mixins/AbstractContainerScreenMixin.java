@@ -43,6 +43,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
@@ -117,6 +118,10 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 	protected int topPos;
 	@Shadow
 	protected int imageWidth;
+
+	@Shadow
+	public abstract void onClose();
+
 	@Unique
 	private List<QuickNavButton> quickNavButtons;
 
@@ -167,7 +172,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "keyPressed")
+	@Inject(at = @At("HEAD"), method = "keyPressed", cancellable = true)
 	public void skyblocker$keyPressed(KeyEvent input, CallbackInfoReturnable<Boolean> cir) {
 		if (this.minecraft != null && this.minecraft.player != null && this.hoveredSlot != null && !input.isEscape() && !this.minecraft.options.keyInventory.matches(input) && Utils.isOnSkyblock()) {
 			SkyblockerConfig config = SkyblockerConfigManager.get();
@@ -183,6 +188,15 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 			if (config.helpers.itemPrice.enableItemPriceLookup && ItemPrice.ITEM_PRICE_LOOKUP.matches(input)) {
 				ItemPrice.itemPriceLookup(minecraft.player, this.hoveredSlot);
 			}
+		}
+		// movement keys escape out of dungeon chests
+		try {
+			if (Utils.isInDungeons() && this.menu.getType().equals(MenuType.GENERIC_9x3) && (input.key() == GLFW.GLFW_KEY_W || input.key() == GLFW.GLFW_KEY_A || input.key() == GLFW.GLFW_KEY_S || input.key() == GLFW.GLFW_KEY_D)) {
+				this.onClose();
+				cir.setReturnValue(true);
+			}
+		} catch (UnsupportedOperationException e) {
+			// ignore
 		}
 	}
 

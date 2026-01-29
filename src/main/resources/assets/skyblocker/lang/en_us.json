@@ -585,6 +585,10 @@
   "skyblocker.config.general.quiverWarning.enableQuiverWarningAfterDungeon": "Enable Quiver Warning After a Dungeon",
   "skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons": "Enable Quiver Warning In Dungeons",
 
+  "skyblocker.config.general.rngMeterNotifier": "RNG Meter notifier",
+  "skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier": "RNG Meter drop notification/celebration",
+  "skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip": "Show a title and play a sound when an item selected on your RNG Meter drops.",
+
   "skyblocker.config.general.searchOverlay.deleteTooltip": "Remove History Entry",
   "skyblocker.config.general.searchOverlay.historyLabel": "History:",
   "skyblocker.config.general.searchOverlay.maxPet": "Max Pet Level",
@@ -1067,6 +1071,7 @@
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.ACCURATE": "Accurate",
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.IN_FRONT": "Smallest In Front",
   "skyblocker.config.uiAndVisuals.bars.intelligenceDisplay.ORIGINAL": "Original",
+  "skyblocker.config.uiAndVisuals.bars.mergeHealthTypes": "Merge health with absorption health",
   "skyblocker.config.uiAndVisuals.bars.openScreen": "Status Bars Config screen",
   "skyblocker.config.uiAndVisuals.bars.riftHealthHP": "Rift Health: HP instead of hearts",
   "skyblocker.config.uiAndVisuals.bars.riftHealthHP.@Tooltip": "In the rift, if enabled, the health status bar will display HP (20, 19, 18, ...) instead of Hearts (10, 9.5, 9, ...)",
@@ -1675,9 +1680,9 @@
 
   "skyblocker.quickNav.confirm": "Click again to confirm.",
 
-  "skyblocker.quiverWarning.10Left": "You only have 10 Arrows left in your Quiver!",
-  "skyblocker.quiverWarning.50Left": "You only have 50 Arrows left in your Quiver!",
-  "skyblocker.quiverWarning.empty": "You don't have any more Arrows left in your Quiver!",
+  "skyblocker.quiverWarning.10Left": "10 Arrows left!",
+  "skyblocker.quiverWarning.50Left": "50 Arrows left!",
+  "skyblocker.quiverWarning.empty": "Quiver depleted!",
 
   "skyblocker.rei.skyblockInfo.failedToFind": "Unable to find!",
   "skyblocker.rei.transfer.failed": "Failed to open recipe!\nCheck chat for more info.",
@@ -1697,6 +1702,8 @@
   "skyblocker.rift.iceNow": "Ice now!",
   "skyblocker.rift.mania": "Mania!",
   "skyblocker.rift.stakeNow": "Stake now!",
+
+  "skyblocker.rngMeterNotifier.rngMeterProc": "RNG METER!",
 
   "skyblocker.shortcuts.command.replacement": "Replacement Command",
   "skyblocker.shortcuts.command.target": "Target Command",

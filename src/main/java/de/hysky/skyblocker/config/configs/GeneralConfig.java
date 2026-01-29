@@ -65,6 +65,8 @@ public class GeneralConfig {
 
 	public Object2ObjectOpenHashMap<String, String> customAnimatedHelmetTextures = new Object2ObjectOpenHashMap<>();
 
+	public RngMeterNotifier rngMeterNotifier = new RngMeterNotifier();
+
 	public static class SpeedPresets {
 		public boolean enableSpeedPresets = true;
 	}
@@ -242,6 +244,10 @@ public class GeneralConfig {
 		public boolean oldLeverHitbox = false;
 
 		public boolean oldMushroomHitbox = false;
+	}
+
+	public static class RngMeterNotifier {
+		public boolean enableRngMeterNotifier = true;
 	}
 
 }

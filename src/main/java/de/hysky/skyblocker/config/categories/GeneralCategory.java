@@ -473,6 +473,19 @@ public class GeneralCategory {
 								.controller(ConfigUtils.createBooleanController())
 								.build())
 						.build())
+				//RNG Meter notifier
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable(("skyblocker.config.general.rngMeterNotifier")))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier"))
+								.description(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip"))
+								.binding(defaults.general.rngMeterNotifier.enableRngMeterNotifier,
+										() -> config.general.rngMeterNotifier.enableRngMeterNotifier,
+										newValue -> config.general.rngMeterNotifier.enableRngMeterNotifier = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.build())
 
 				.build();
 	}

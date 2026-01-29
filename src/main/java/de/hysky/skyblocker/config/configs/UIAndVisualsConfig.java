@@ -283,6 +283,8 @@ public class UIAndVisualsConfig {
 
 		public IntelligenceDisplay intelligenceDisplay = IntelligenceDisplay.ORIGINAL;
 
+		public boolean mergeHealthTypes = false;
+
 		// Kept in for backwards compatibility, remove if needed
 		@SuppressWarnings("DeprecatedIsStillUsed")
 		@Deprecated
