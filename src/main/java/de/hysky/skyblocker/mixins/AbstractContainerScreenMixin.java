@@ -41,12 +41,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
-<<<<<<< HEAD
 import net.minecraft.world.inventory.ContainerInput;
-=======
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
->>>>>>> 0491b5fda (Rebase patches on 1.21.11 master)
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
@@ -127,54 +123,8 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 	@Shadow
 	public abstract void onClose();
 
-	@Unique
-	private List<QuickNavButton> quickNavButtons;
-
 	protected AbstractContainerScreenMixin(Component title) {
 		super(title);
-	}
-
-	@Inject(method = "init", at = @At("RETURN"))
-	private void skyblocker$initQuickNav(CallbackInfo ci) {
-		if (Utils.isOnSkyblock() && SkyblockerConfigManager.get().quickNav.enableQuickNav && minecraft != null && minecraft.player != null && !minecraft.player.isCreative()) {
-			for (QuickNavButton quickNavButton : quickNavButtons = QuickNav.init(getTitle().getString().trim())) {
-				addWidget(quickNavButton);
-			}
-		}
-	}
-
-	@SuppressWarnings("unused")
-	@Inject(method = "init", at = @At("TAIL"))
-	private void skyblocker$initMuseumOverlay(CallbackInfo ci) {
-		if (Utils.isOnSkyblock() && SkyblockerConfigManager.get().uiAndVisuals.museumOverlay && minecraft != null && minecraft.player != null && getTitle().getString().contains("Museum")) {
-			int overlayWidth = MuseumManager.BACKGROUND_WIDTH; // width of the overlay
-			int spacing = MuseumManager.SPACING; // space between inventory and overlay
-
-			// Default: center inventory
-			int inventoryX = (this.width - this.imageWidth) / 2;
-
-			// If overlay would go off the right edge, shift inventory left
-			if (inventoryX + this.imageWidth + spacing + overlayWidth > this.width) {
-				inventoryX = this.width - (this.imageWidth + overlayWidth + spacing);
-				if (inventoryX < 0) inventoryX = 0;
-			}
-			this.leftPos = inventoryX;
-
-			new MuseumManager(this, this.leftPos, this.topPos, this.imageWidth);
-		}
-	}
-
-	@WrapOperation(method = "renderBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;renderBg(Lnet/minecraft/client/gui/GuiGraphics;FII)V"))
-	private void skyblocker$DrawMuseumOverlayBackground(AbstractContainerScreen<?> instance, GuiGraphics context, float delta, int mouseX, int mouseY, Operation<Void> original) {
-		if (Utils.isOnSkyblock() && SkyblockerConfigManager.get().uiAndVisuals.museumOverlay && minecraft != null && minecraft.player != null && getTitle().getString().contains("Museum")) {
-			// Custom museum overlay background drawing
-			int rows = 6;
-			context.blit(RenderPipelines.GUI_TEXTURED, GENERIC_CONTAINER_TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, rows * 18 + 17, 256, 256);
-			context.blit(RenderPipelines.GUI_TEXTURED, GENERIC_CONTAINER_TEXTURE, this.leftPos, this.topPos + rows * 18 + 17, 0.0F, 126.0F, this.imageWidth, 96, 256, 256);
-		} else {
-			// Call vanilla
-			original.call(instance, context, delta, mouseX, mouseY);
-		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "keyPressed", cancellable = true)
@@ -205,7 +155,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 				cir.setReturnValue(true);
 			}
 		}
-		catch (UnsupportedOperationException e) {
+		catch (UnsupportedOperationException _) {
 			// ignore
 		}
 	}
