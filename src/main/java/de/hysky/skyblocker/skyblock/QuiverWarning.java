@@ -39,6 +39,7 @@ public class QuiverWarning {
 	}
 
 	private static void onChatMessage(Type warning) {
+		CLIENT.gui.setTimes(5, 20, 5);
 		if (!Utils.isInDungeons()) {
 			CLIENT.gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
 		} else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {

@@ -65,9 +65,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
+import java.util.stream.Stream;
 
 @Mixin(AbstractContainerScreen.class)
 public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMenu> extends Screen {
@@ -192,13 +194,18 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 				ItemPrice.itemPriceLookup(minecraft.player, this.hoveredSlot);
 			}
 		}
-		// movement keys escape out of dungeon chests
 		try {
-			if (Utils.isInDungeons() && this.menu.getType().equals(MenuType.GENERIC_9x3) && (input.key() == GLFW.GLFW_KEY_W || input.key() == GLFW.GLFW_KEY_A || input.key() == GLFW.GLFW_KEY_S || input.key() == GLFW.GLFW_KEY_D)) {
+			// movement keys escape out of dungeon chests
+			if (Utils.isInDungeons() && this.menu.getType().equals(MenuType.GENERIC_9x3) && minecraft != null &&
+					Stream.of(this.minecraft.options.keyUp, this.minecraft.options.keyLeft, this.minecraft.options.keyDown, this.minecraft.options.keyRight, this.minecraft.options.keyJump)
+							.filter(Objects::nonNull)
+							.anyMatch(key -> key.matches(input)))
+			{
 				this.onClose();
 				cir.setReturnValue(true);
 			}
-		} catch (UnsupportedOperationException e) {
+		}
+		catch (UnsupportedOperationException e) {
 			// ignore
 		}
 	}
@@ -418,4 +425,5 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 	private boolean skyblocker$hideChestName(GuiGraphicsExtractor graphics, Font font, Component component, int x, int y, int colour, boolean shadow) {
 		return !ChestValue.hideChestNameLabel;
 	}
+
 }
