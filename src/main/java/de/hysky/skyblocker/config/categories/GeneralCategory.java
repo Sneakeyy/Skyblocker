@@ -466,7 +466,45 @@ public class GeneralCategory {
 								.controller(ConfigUtils.createBooleanController())
 								.build())
 						.build())
-
+				//Hitboxes
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable("skyblocker.config.general.hitbox"))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.hitbox.oldCactusHitbox"))
+								.binding(defaults.general.hitbox.oldCactusHitbox,
+										() -> config.general.hitbox.oldCactusHitbox,
+										newValue -> config.general.hitbox.oldCactusHitbox = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.hitbox.oldLeverHitbox"))
+								.binding(defaults.general.hitbox.oldLeverHitbox,
+										() -> config.general.hitbox.oldLeverHitbox,
+										newValue -> config.general.hitbox.oldLeverHitbox = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.hitbox.oldMushroomHitbox"))
+								.binding(defaults.general.hitbox.oldMushroomHitbox,
+										() -> config.general.hitbox.oldMushroomHitbox,
+										newValue -> config.general.hitbox.oldMushroomHitbox = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.build())
+				//RNG Meter notifier
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable(("skyblocker.config.general.rngMeterNotifier")))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier"))
+								.description(Component.translatable("skyblocker.config.general.rngMeterNotifier.enableRngMeterNotifier.@Tooltip"))
+								.binding(defaults.general.rngMeterNotifier.enableRngMeterNotifier,
+										() -> config.general.rngMeterNotifier.enableRngMeterNotifier,
+										newValue -> config.general.rngMeterNotifier.enableRngMeterNotifier = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.build())
 				.build();
 	}
 }
