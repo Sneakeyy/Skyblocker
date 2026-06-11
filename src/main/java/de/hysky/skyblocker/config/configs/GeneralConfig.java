@@ -31,7 +31,7 @@ public class GeneralConfig {
 
 	public ItemList itemList = new ItemList();
 
-	public ItemList.RngMeterNotifier rngMeterNotifier = new ItemList.RngMeterNotifier();
+	public RngMeterNotifier rngMeterNotifier = new RngMeterNotifier();
 
 	public ItemTooltip itemTooltip = new ItemTooltip();
 
@@ -87,12 +87,16 @@ public class GeneralConfig {
 	}
 
 
-    public static class QuiverWarning {
-        public boolean enableQuiverWarning = true;
+	public static class QuiverWarning {
+		public boolean enableQuiverWarning = true;
 
 		public boolean enableQuiverWarningInDungeons = true;
 
 		public boolean enableQuiverWarningAfterDungeon = true;
+	}
+
+	public static class RngMeterNotifier {
+		public boolean enableRngMeterNotifier = true;
 	}
 
 	public static class ItemList {
@@ -100,8 +104,7 @@ public class GeneralConfig {
 
 		public boolean enableItemList = true;
 
-	public static class RngMeterNotifier {
-		public boolean enableRngMeterNotifier = true;
+		public boolean enableCollapsibleEntries = true;
 	}
 
 	public static class ItemTooltip {
