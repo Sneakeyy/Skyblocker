@@ -22,30 +22,30 @@ public class QuiverWarning {
 		Scheduler.INSTANCE.scheduleCyclic(QuiverWarning::update, 10);
 	}
 
-    public static boolean onChatMessage(Component text, boolean overlay) {
-        String message = ChatFormatting.stripFormatting(text.getString());
-        if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.startsWith("QUIVER! You")) {
-            Minecraft.getInstance().gui.setTimes(5, 20, 5);
-            if (message.startsWith("QUIVER! You only have 50")) {
-                onChatMessage(Type.FIFTY_LEFT);
-            } else if (message.startsWith("QUIVER! You only have 10")) {
-                onChatMessage(Type.TEN_LEFT);
-            } else if (message.startsWith("QUIVER! You have run out of")) {
-                onChatMessage(Type.EMPTY);
-            }
-        }
-        return true;
-    }
+	public static boolean onChatMessage(Component text, boolean overlay) {
+		String message = ChatFormatting.stripFormatting(text.getString());
+		if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.startsWith("QUIVER! You")) {
+			Minecraft.getInstance().gui.setTimes(5, 20, 5);
+			if (message.startsWith("QUIVER! You only have 50")) {
+				onChatMessage(Type.FIFTY_LEFT);
+			} else if (message.startsWith("QUIVER! You only have 10")) {
+				onChatMessage(Type.TEN_LEFT);
+			} else if (message.startsWith("QUIVER! You have run out of")) {
+				onChatMessage(Type.EMPTY);
+			}
+		}
+		return true;
+	}
 
-    private static void onChatMessage(Type warning) {
-        if (!Utils.isInDungeons()) {
-            Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
-        } else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {
+	private static void onChatMessage(Type warning) {
+		if (!Utils.isInDungeons()) {
 			Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
-            QuiverWarning.warning = warning;
-        }
+		} else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {
+			Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			QuiverWarning.warning = warning;
+		}
 		playQuiverSounds(warning);
-    }
+	}
 
 	public static void update() {
 		if (warning != null && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningAfterDungeon && !Utils.isInDungeons()) {
@@ -67,12 +67,12 @@ public class QuiverWarning {
 		}
 	}
 
-    private enum Type {
-        NONE(""),
-        FIFTY_LEFT("50Left"),
-        TEN_LEFT("10Left"),
-        EMPTY("empty");
-        private final String key;
+	private enum Type {
+		NONE(""),
+		FIFTY_LEFT("50Left"),
+		TEN_LEFT("10Left"),
+		EMPTY("empty");
+		private final String key;
 
 		Type(String key) {
 			this.key = "skyblocker.quiverWarning." + key;

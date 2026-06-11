@@ -9,25 +9,26 @@ import de.hysky.skyblocker.skyblock.slayers.SlayerType;
 import de.hysky.skyblocker.utils.render.title.Title;
 import de.hysky.skyblocker.utils.render.title.TitleContainer;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
 public class StakeIndicator {
-    private static final Title title = new Title("skyblocker.rift.stakeNow", ChatFormatting.RED);
+	private static final Title title = new Title("skyblocker.rift.stakeNow", ChatFormatting.RED);
 	private static final SoundEvent sound = SoundEvents.TOTEM_USE;
 	private static final float indicatorVolume = 100f;
 	private static final float indicatorPitch = 0.1f;
 
 	public static void updateStake() {
 		if (!SkyblockerConfigManager.get().slayers.vampireSlayer.enableSteakStakeIndicator || !SlayerManager.isFightingSlayerType(SlayerType.VAMPIRE)) {
-            TitleContainer.removeTitle(title);
-            return;
-        }
+			TitleContainer.removeTitle(title);
+			return;
+		}
 		Entity slayerEntity = SlayerManager.getSlayerArmorStand();
-        if (slayerEntity != null && slayerEntity.getDisplayName().toString().contains("҉")) {
+		if (slayerEntity != null && slayerEntity.getDisplayName().toString().contains("҉")) {
 			TitleContainer.addTitleAndPlayCustomSound(title, sound, indicatorVolume, indicatorPitch);
 		} else {
 			TitleContainer.removeTitle(title);
 		}
-    }
+	}
 }

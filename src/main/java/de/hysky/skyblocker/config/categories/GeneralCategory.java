@@ -150,32 +150,32 @@ public class GeneralCategory {
 								.action(screen -> Minecraft.getInstance().gui.setScreen(new ShortcutsConfigScreen(screen)))
 								.build())
 						.build())
-                //Quiver Warning
-                .group(OptionGroup.createBuilder()
-                        .name(Component.translatable("skyblocker.config.general.quiverWarning"))
-                        .collapsed(true)
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarning"))
-                                .binding(defaults.general.quiverWarning.enableQuiverWarning,
-                                        () -> config.general.quiverWarning.enableQuiverWarning,
-                                        newValue -> config.general.quiverWarning.enableQuiverWarning = newValue)
-                                .controller(ConfigUtils.createBooleanController())
-                                .build())
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons"))
-                                .binding(defaults.general.quiverWarning.enableQuiverWarningInDungeons,
-                                        () -> config.general.quiverWarning.enableQuiverWarningInDungeons,
-                                        newValue -> config.general.quiverWarning.enableQuiverWarningInDungeons = newValue)
-                                .controller(ConfigUtils.createBooleanController())
-                                .build())
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningAfterDungeon"))
-                                .binding(defaults.general.quiverWarning.enableQuiverWarningAfterDungeon,
-                                        () -> config.general.quiverWarning.enableQuiverWarningAfterDungeon,
-                                        newValue -> config.general.quiverWarning.enableQuiverWarningAfterDungeon = newValue)
-                                .controller(ConfigUtils.createBooleanController())
-                                .build())
-                        .build())
+				//Quiver Warning
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable("skyblocker.config.general.quiverWarning"))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarning"))
+								.binding(defaults.general.quiverWarning.enableQuiverWarning,
+										() -> config.general.quiverWarning.enableQuiverWarning,
+										newValue -> config.general.quiverWarning.enableQuiverWarning = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningInDungeons"))
+								.binding(defaults.general.quiverWarning.enableQuiverWarningInDungeons,
+										() -> config.general.quiverWarning.enableQuiverWarningInDungeons,
+										newValue -> config.general.quiverWarning.enableQuiverWarningInDungeons = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarningAfterDungeon"))
+								.binding(defaults.general.quiverWarning.enableQuiverWarningAfterDungeon,
+										() -> config.general.quiverWarning.enableQuiverWarningAfterDungeon,
+										newValue -> config.general.quiverWarning.enableQuiverWarningAfterDungeon = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
+						.build())
 				//RNG Meter notifier
 				.group(OptionGroup.createBuilder()
 						.name(Component.translatable(("skyblocker.config.general.rngMeterNotifier")))
@@ -190,17 +190,17 @@ public class GeneralCategory {
 								.build())
 						.build())
 
-                //Item List
-                .group(OptionGroup.createBuilder()
-                        .name(Component.translatable("skyblocker.config.general.itemList"))
-                        .collapsed(true)
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Component.translatable("skyblocker.config.general.itemList.enableItemList"))
-                                .binding(defaults.general.itemList.enableItemList,
-                                        () -> config.general.itemList.enableItemList,
-                                        newValue -> config.general.itemList.enableItemList = newValue)
-                                .controller(ConfigUtils.createBooleanController())
-                                .build())
+				//Item List
+				.group(OptionGroup.createBuilder()
+						.name(Component.translatable("skyblocker.config.general.itemList"))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Component.translatable("skyblocker.config.general.itemList.enableItemList"))
+								.binding(defaults.general.itemList.enableItemList,
+										() -> config.general.itemList.enableItemList,
+										newValue -> config.general.itemList.enableItemList = newValue)
+								.controller(ConfigUtils.createBooleanController())
+								.build())
 						.option(Option.<Boolean>createBuilder()
 								.name(Component.translatable("skyblocker.config.general.quiverWarning.enableQuiverWarning"))
 								.binding(defaults.general.quiverWarning.enableQuiverWarning,
