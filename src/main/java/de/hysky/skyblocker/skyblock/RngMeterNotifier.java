@@ -22,8 +22,8 @@ public class RngMeterNotifier {
 			String message = ChatFormatting.stripFormatting(text.getString());
 			Minecraft client = Minecraft.getInstance();
 			if (client.player != null && message.startsWith(rngMeterProcced)) {
-				client.gui.setTimes(5, 75, 20);
-				client.gui.setTitle(Component.translatable("skyblocker.rngMeterNotifier.rngProcced").withStyle(ChatFormatting.LIGHT_PURPLE));
+				client.gui.hud.setTimes(5, 75, 20);
+				client.gui.hud.setTitle(Component.translatable("skyblocker.rngMeterNotifier.rngProcced").withStyle(ChatFormatting.LIGHT_PURPLE));
 				client.player.playSound(SoundEvents.TOTEM_USE, 100f, 0.1f);
 				client.player.playSound(SoundEvents.FIREWORK_ROCKET_LAUNCH, 100f, 0.1f);
 			}

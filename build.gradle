@@ -281,6 +281,7 @@ tasks.withType(ProcessResources).configureEach {
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
 	it.options.compilerArgs << "-Xmaxerrs" << "2000"
+	it.options.compilerArgs.add('--enable-preview')
 }
 
 java {
@@ -301,6 +302,7 @@ test {
 	useJUnitPlatform()
 
 	systemProperty("IS_TEST_ENV", "true")
+	jvmArgs(['--enable-preview'])
 }
 
 spotless {

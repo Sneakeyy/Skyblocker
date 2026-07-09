@@ -1,5 +1,6 @@
 package de.hysky.skyblocker.skyblock;
 
+import net.minecraft.client.gui.Hud;
 import org.jspecify.annotations.Nullable;
 
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -25,7 +26,7 @@ public class QuiverWarning {
 	public static boolean onChatMessage(Component text, boolean overlay) {
 		String message = ChatFormatting.stripFormatting(text.getString());
 		if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && message.startsWith("QUIVER! You")) {
-			Minecraft.getInstance().gui.setTimes(5, 20, 5);
+			Minecraft.getInstance().gui.hud.setTimes(5, 20, 5);
 			if (message.startsWith("QUIVER! You only have 50")) {
 				onChatMessage(Type.FIFTY_LEFT);
 			} else if (message.startsWith("QUIVER! You only have 10")) {
@@ -39,9 +40,9 @@ public class QuiverWarning {
 
 	private static void onChatMessage(Type warning) {
 		if (!Utils.isInDungeons()) {
-			Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			Minecraft.getInstance().gui.hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
 		} else if (SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningInDungeons) {
-			Minecraft.getInstance().gui.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			Minecraft.getInstance().gui.hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
 			QuiverWarning.warning = warning;
 		}
 		playQuiverSounds(warning);
@@ -49,9 +50,9 @@ public class QuiverWarning {
 
 	public static void update() {
 		if (warning != null && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarning && SkyblockerConfigManager.get().general.quiverWarning.enableQuiverWarningAfterDungeon && !Utils.isInDungeons()) {
-			Gui inGameHud = Minecraft.getInstance().gui;
-			inGameHud.resetTitleTimes();
-			inGameHud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
+			Hud hud = Minecraft.getInstance().gui.hud;
+			hud.resetTitleTimes();
+			hud.setTitle(Component.translatable(warning.key).withStyle(ChatFormatting.RED));
 			playQuiverSounds(warning);
 			warning = null;
 		}
